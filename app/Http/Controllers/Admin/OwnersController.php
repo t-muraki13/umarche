@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB; // QueryBuilder クエリビルダ
+use App\Models\Owner; //Eloquent エロクアント
+use Carbon\Carbon;
+use PDO;
 
 class OwnersController extends Controller
 {
@@ -20,7 +24,26 @@ class OwnersController extends Controller
 
     public function index()
     {
-        dd('www');
+        $date_now = Carbon::now();
+        $date_parse = Carbon::parse(now());
+        echo $date_now;
+        echo "<br>";
+        echo $date_parse;
+
+        $e_all = Owner::all();
+        $q_get = DB::table('owners')->select('name', 'created_at')->get();
+        //$q_firdst = DB::table('owners')->select('name')->first();
+
+        // $c_test = collect([
+        //     'name'=> 'テスト'
+        // ]);
+
+        //var_dump($q_firdst);
+
+
+        //dd($e_all, $q_get, $q_firdst, $c_test);
+        return view('admin.owners.index',
+        compact('e_all', 'q_get'));
     }
 
     /**
