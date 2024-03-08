@@ -43,7 +43,8 @@ class OwnersController extends Controller
 
 
         //dd($e_all, $q_get, $q_firdst, $c_test);
-        $owners = Owner::select('id', 'name', 'email', 'created_at')->get();
+        $owners = Owner::select('id', 'name', 'email', 'created_at')
+        ->paginate(5);
         return view('admin.owners.index',
         compact('owners'));
     }
