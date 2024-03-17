@@ -17,11 +17,11 @@ class ShopSeeder extends Seeder
     {
         DB::table('shops')->insert([
             [
-            'owner_id' => 1,
-            'name' => 'ダッフィーの家',
-            'infomation' => 'ダッフィーの好きなものが揃います。',
-            'filename' => '',
-            'is_selling' => true
+                'owner_id' => 1,
+                'name' => 'ダッフィーの家',
+                'infomation' => 'ダッフィーの好きなものが揃います。',
+                'filename' => '',
+                'is_selling' => true
             ],
             [
                 'owner_id' => 2,
