@@ -82,6 +82,6 @@ class ShopController extends Controller
         return redirect()
         ->route('owner.shops.index')
         ->with(['message' => '店舗情報を更新しました。',
-        'status' => 'info']);;
+        'status' => 'info']);
     }
 }
