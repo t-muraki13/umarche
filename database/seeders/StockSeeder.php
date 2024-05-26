@@ -16,12 +16,12 @@ class StockSeeder extends Seeder
     {
         DB::table('t_stocks')->insert([
             [
-                'products_id' => 1,
+                'product_id' => 1,
                 'type' => 1,
                 'quantity' => 7,
             ],
             [
-                'products_id' => 1,
+                'product_id' => 1,
                 'type' => 1,
                 'quantity' => 3,
             ]

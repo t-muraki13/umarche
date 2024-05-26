@@ -15,7 +15,7 @@ class CreateStocksTable extends Migration
     {
         Schema::create('t_stocks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('products_id')
+            $table->foreignId('product_id')
             ->constrained()
             ->onUpdate('cascade')
             ->onDelete('cascade');
