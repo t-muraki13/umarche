@@ -90,7 +90,7 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        //dd($request);
+        dd($request);
         try{
             DB::transaction(function () use($request) {
                 $product = Products::create([
@@ -100,10 +100,10 @@ class ProductController extends Controller
                     'sort_order' => $request->sort_order,
                     'shop_id' => $request->shop_id,
                     'secondary_category_id' => $request->category,
-                    'images1' => $request->image1,
-                    'images2' => $request->image2,
-                    'images3' => $request->image3,
-                    'images4' => $request->image4,
+                    'image1' => $request->image1,
+                    'image2' => $request->image2,
+                    'image3' => $request->image3,
+                    'image4' => $request->image4,
                     'is_selling' => $request->is_selling
                 ]);
 
@@ -148,6 +148,8 @@ class ProductController extends Controller
         ->orderBy('updated_at', 'desc')
         ->get();
 
+        //dd($images);
+
         $categories = PrimaryCategory::with('secondary')
         ->get();
 
@@ -165,10 +167,11 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, $id)
     {
+        //dd($request);
         $request->validate([
             'current_quantity' => ['required', 'integer'],
         ]);
-
+        //dd($request);
         $product = Products::findOrFail($id);
         $quantity = Stock::where('product_id', $product->id)
         ->sum('quantity');
@@ -180,6 +183,7 @@ class ProductController extends Controller
             return redirect()->route('owner.products.edit', ['product' => $id])
             ->with(['message' => '在庫数が変更されています。再度確認してください。','status' => 'alert']);
         } else {
+            //dd($product);
             try{
                 DB::transaction(function () use($request, $product) {
                     $product->name = $request->name;
@@ -188,10 +192,10 @@ class ProductController extends Controller
                     $product->sort_order = $request->sort_order;
                     $product->shop_id = $request->shop_id;
                     $product->secondary_category_id = $request->category;
-                    $product->image1 = $request->images1;
-                    $product->image2 = $request->images2;
-                    $product->image3 = $request->images3;
-                    $product->image4 = $request->images4;
+                    $product->image1 = $request->image1;
+                    $product->image2 = $request->image2;
+                    $product->image3 = $request->image3;
+                    $product->image4 = $request->image4;
                     $product->is_selling = $request->is_selling;
                     $product->save();
 

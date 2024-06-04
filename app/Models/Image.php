@@ -8,6 +8,7 @@ use App\Models\Owner;
 
 class Image extends Model
 {
+    protected $table = 'images';
     use HasFactory;
 
     protected $fillable = [
