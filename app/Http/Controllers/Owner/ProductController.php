@@ -67,16 +67,16 @@ class ProductController extends Controller
         ->select('id', 'name')
         ->get();
 
-        // dd($shops);
+        //dd($shops);
 
         $images = Image::where('owner_id', Auth::id())
         ->select('id', 'title', 'filename')
         ->orderBy('updated_at', 'desc')
         ->get();
-
+        //dd($images);
         $categories = PrimaryCategory::with('secondary')
         ->get();
-
+        //dd($categories);
         return view('owner.products.create',
         compact('shops', 'images', 'categories'));
 
@@ -90,8 +90,9 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        dd($request);
+        //dd($request);
         try{
+            //dd($request);
             DB::transaction(function () use($request) {
                 $product = Products::create([
                     'name' => $request->name,
@@ -106,6 +107,7 @@ class ProductController extends Controller
                     'image4' => $request->image4,
                     'is_selling' => $request->is_selling
                 ]);
+                //dd($product);
 
                 Stock::create([
                     'product_id' => $product->id,
@@ -133,7 +135,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Products::findOrFail($id);
+        //$product = Products::findOrFail($id);
+        $product = Products::with('imageFirst', 'imageSecond', 'imageThird', 'imageFourth')->findOrFail($id);
+        //dd($product, $product->imageFirst, $product->imageSecond, $product->imageThird, $product->imageFourth);
         //dd($product);
         $quantity = Stock::where('product_id', $product->id)->sum('quantity');
 

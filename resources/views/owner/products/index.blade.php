@@ -16,14 +16,17 @@
                     <div class="flex flex-wrap">
                         @foreach ($ownerInfo as $owner)
                             @foreach ($owner->shop->product as $product)
-                                <div class="w-1/4 p-2 md:p-4">
-                                    <a href="{{ route('owner.products.edit', ['product' => $product->id]) }}">
+                            @php
+                                $imageFilename = $product->imageFirst->filename ?? $product->imageSecond->filename ?? $product->imageThird->filename ?? $product->imageFourth->filename ?? '';
+                            @endphp
+                            <div class="w-1/4 p-2 md:p-4">
+                                <a href="{{ route('owner.products.edit', ['product' => $product->id]) }}">
                                         <div class="border rounded-md p-2 md:p-4">
-                                          <x-thumbnail filename="{{ $product->imageFirst->filename ?? ''}}" type="products" />
-                                              <div class="text-gray-700">{{ $product->name }}</div>
-                                        </div>
-                                    </a>
-                                </div>
+                                      <x-thumbnail filename="{{ $imageFilename ?? ''}}" type="products" />
+                                          <div class="text-gray-700">{{ $product->name }}</div>
+                                    </div>
+                                </a>
+                            </div>
                              @endforeach
                         @endforeach
                     </div>
