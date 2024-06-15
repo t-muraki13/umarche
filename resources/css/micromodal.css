@@ -12,10 +12,11 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.3);
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 10;
 }
 
 .modal__container {
@@ -64,12 +65,12 @@
   padding-right: 1rem;
   padding-top: .5rem;
   padding-bottom: .5rem;
-  background-color: #7a3737;
+  background-color: gray;
   color: rgba(0,0,0,.8);
   border-radius: .25rem;
   border-style: solid;
   border-width: .1rem;
-  border-color: #FFFF61;
+  border-color: gray;
   cursor: pointer;
   -webkit-appearance: button;
   text-transform: none;
