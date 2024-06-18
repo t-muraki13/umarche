@@ -976,6 +976,10 @@ select {
   margin-bottom: 3rem;
 }
 
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
 .mb-4 {
   margin-bottom: 1rem;
 }
@@ -2221,6 +2225,10 @@ select {
     margin-bottom: 1.5rem;
   }
 
+  .md\:ml-2 {
+    margin-left: 0.5rem;
+  }
+
   .md\:ml-4 {
     margin-left: 1rem;
   }
@@ -2237,8 +2245,20 @@ select {
     width: 50%;
   }
 
+  .md\:w-2\/12 {
+    width: 16.666667%;
+  }
+
   .md\:w-2\/3 {
     width: 66.666667%;
+  }
+
+  .md\:w-3\/12 {
+    width: 25%;
+  }
+
+  .md\:w-4\/12 {
+    width: 33.333333%;
   }
 
   .md\:grid-cols-2 {
