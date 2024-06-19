@@ -11,6 +11,7 @@ use App\Models\Stock;
 use App\Models\Products;
 use Stripe\Stripe;
 use App\Constants\Common;
+use Stripe\Checkout\Session;
 
 class CartController extends Controller
 {
@@ -74,17 +75,29 @@ class CartController extends Controller
                 //dd('uu');
                 return redirect()->route('user.cart.index');
             } else {
+                // $lineItem = [
+                //     'name' => $product->name,
+                //     'description' => $product->infomation,
+                //     'amonut' => $product->price,
+                //     'currency' => 'jpy',
+                //     'quantity' => $product->pivot->quantity,
+                // ];
+                // array_push($lineItems, $lineItem);
                 $lineItem = [
-                    'name' => $product->name,
-                    'description' => $product->infomation,
-                    'amonut' => $product->price,
-                    'currency' => 'jpy',
+                    'price_data' => [
+                        'currency' => 'jpy',
+                        'product_data' => [
+                            'name' => $product->name,
+                            'description' => $product->infomation,
+                        ],
+                        'unit_amount' => $product->price * 100, // 金額をセント単位で設定（円の場合も小数点以下の値を含める必要がある場合は100で掛ける）
+                    ],
                     'quantity' => $product->pivot->quantity,
                 ];
                 array_push($lineItems, $lineItem);
             }
         }
-        dd('yyy');
+        //dd('yyy');
         foreach($products as $product) {
             Stock::create([
                 'product_id' => $product->id,
@@ -93,16 +106,18 @@ class CartController extends Controller
             ]);
         }
 
-        dd('test');
+        //dd('test');
 
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
         $session = \Stripe\Checkout\Session::create([
             'payment_method_types' => ['card'],
-            'line_items' => [$lineItems],
+            'line_items' => [[$lineItems]],
             'mode' => 'payment',
             'success_url' => route('user.items.index'),
-            'cancel_url' => route('user.cart'),
+            'cancel_url' => route('user.cart.index'),
         ]);
+
+        //dd($session);
 
         $publicKey = env('STRIPE_PUBLIC_KEY');
 
