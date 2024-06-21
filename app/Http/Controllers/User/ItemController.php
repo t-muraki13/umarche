@@ -27,9 +27,11 @@ class ItemController extends Controller
         });
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $products = Products::availableItems()->get();
+        $products = Products::availableItems()
+        ->sortOrder($request->sort)
+        ->get();
         
         return view('user.index', compact('products'));
     }

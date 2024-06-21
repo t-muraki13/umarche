@@ -9,6 +9,7 @@ use App\Models\SecondaryCategory;
 use App\Models\Image;
 use App\Models\Stock;
 use App\Models\User;
+use App\Constants\Common;
 use Illuminate\Support\Facades\DB;
 
 class Products extends Model
@@ -90,4 +91,22 @@ class Products extends Model
         ->select('products.id as id', 'products.name as name', 'products.price', 'products.sort_order as sort_order', 'products.infomation', 'secondary_categories.name as category', 'image1.filename as filename');
     }
 
+    public function scopeSortOrder($query, $sortOrder)
+    {
+        if($sortOrder === null || $sortOrder === Common::SORT_ORDER['recommend']){
+            return $query->orderBy('sort_order', 'asc');
+        }
+        if($sortOrder === Common::SORT_ORDER['higherPrice']) {
+            return $query->orderBy('price', 'desc');
+        }
+        if($sortOrder === Common::SORT_ORDER['lowerPrice']) {
+            return $query->orderBy('price', 'asc');
+        }
+        if($sortOrder === Common::SORT_ORDER['later']) {
+            return $query->orderBy('products.created_at', 'desc');
+        }
+        if($sortOrder === Common::SORT_ORDER['older']) {
+            return $query->orderBy('products.created_at', 'asc');
+        }
+    }
 }
