@@ -31,7 +31,7 @@ class ItemController extends Controller
     {
         $products = Products::availableItems()
         ->sortOrder($request->sort)
-        ->get();
+        ->paginate($request->pagination);
         
         return view('user.index', compact('products'));
     }
