@@ -13,6 +13,7 @@ use Stripe\Stripe;
 use App\Constants\Common;
 use Stripe\Checkout\Session;
 use App\Services\CartService;
+use App\Jobs\SendThanksMail;
 
 class CartController extends Controller
 {
@@ -67,7 +68,14 @@ class CartController extends Controller
         ////
         $items = Cart::where('user_id', Auth::id())->get();
         $products = CartService::getItemsInCart($items);
+        //dd($products);
+        $user = User::findOrFail(Auth::id());
+
+        SendThanksMail::dispatch($products, $user);
+        dd('ユーザーメール送信テスト');
+
         ////
+
         $user = User::findOrFail(Auth::id());
         $products = $user->products;
         
