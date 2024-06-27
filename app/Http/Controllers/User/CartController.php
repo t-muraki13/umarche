@@ -12,6 +12,9 @@ use App\Models\Products;
 use Stripe\Stripe;
 use App\Constants\Common;
 use Stripe\Checkout\Session;
+use App\Services\CartService;
+use App\Jobs\SendThanksMail;
+use App\Jobs\SendOrderedMail;
 
 class CartController extends Controller
 {
@@ -127,6 +130,20 @@ class CartController extends Controller
 
     public function success()
     {
+        ////
+        $items = Cart::where('user_id', Auth::id())->get();
+        $products = CartService::getItemsInCart($items);
+        //dd($products);
+        $user = User::findOrFail(Auth::id());
+
+        SendThanksMail::dispatch($products, $user);
+        foreach($products as $product) {
+            SendOrderedMail::dispatch($product, $user);
+        }
+        //dd('ユーザーメール送信テスト');
+
+        ////
+
         Cart::where('user_id', Auth::id())->delete();
 
         return redirect()->route('user.items.index');
