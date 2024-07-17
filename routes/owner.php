@@ -11,6 +11,7 @@ use App\Http\Controllers\Owner\Auth\VerifyEmailController;
 use App\Http\Controllers\Owner\ImageController;
 use App\Http\Controllers\Owner\ProductController;
 use App\Http\Controllers\Owner\shopController;
+use App\Http\Controllers\Owner\InfomationController;
 use App\Models\Shop;
 use Illuminate\Support\Facades\Route;
 
@@ -94,5 +95,11 @@ Route::middleware('auth:owners')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
+    
+    Route::get('infomation', [InfomationController::class, 'infomation'])->name('infomation');
+
+    Route::post('confirm/{owner}', [InfomationController::class, 'confirm'])->name('confirm');
+
+    Route::put('update/{owner}', [InfomationController::class, 'update'])->name('update');
 });
 

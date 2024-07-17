@@ -4,6 +4,7 @@
             商品一覧
         </h2>
         <form action="{{ route('user.items.index') }}" method="get">
+            <x-flash-message status="session('status')" />
             <div class="lg:flex lg:justify-around">
                 <div class="flex items-center">
                     <select name="category" class="mb-2 lg:mb-0 lg:mr-2" id="">

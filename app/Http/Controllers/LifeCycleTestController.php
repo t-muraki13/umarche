@@ -8,6 +8,7 @@ class LifeCycleTestController extends Controller
 {
     public function showServiceProviderTest()
     {
+        //dd(app());
         $encrypt = app()->make('encrypter');
         $password = $encrypt->encrypt('password');
 
@@ -17,7 +18,7 @@ class LifeCycleTestController extends Controller
 
     public function showServiceContainerTest() 
     {
-        
+        //dd(app());
         app()->bind('lifeCycleTest', function() {
             return 'ライフサイクルテスト';
         });
