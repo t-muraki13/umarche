@@ -83,5 +83,6 @@ class ShopController extends Controller
         ->route('owner.shops.index')
         ->with(['message' => '店舗情報を更新しました。',
         'status' => 'info']);
+
     }
 }
