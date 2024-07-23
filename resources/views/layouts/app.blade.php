@@ -19,13 +19,17 @@
         <!-- <@vite(['resources/css/app.css', 'resources/js/app.js']) -->
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen flex flex-col bg-gray-100">
             @if(request()->is('admin*'))
                 @include('layouts.admin-navigation')
             @elseif(request()->is('owner*'))
                 @include('layouts.owner-navigation')
             @else
-                @include('layouts.user-navigation')
+                @if(request()->path() === 'user')
+                    @include('layouts.user-nav-infomation')
+                @else
+                    @include('layouts.user-navigation')
+                @endif
             @endif
 
             <!-- Page Heading -->

@@ -28,6 +28,7 @@
                           <div class="p-2 w-1/2 mx-auto">
                               <div class="relative">
                                 <div class="w-32">
+                                  @php dd($shop->filename); @endphp
                                   <x-thumbnail :filename="$shop->filename" type="shops"/>
                                 </div>
                               </div>
